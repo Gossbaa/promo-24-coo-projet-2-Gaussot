@@ -2,7 +2,10 @@ package duckcorp;
 
 import duckcorp.duck.Duck;
 import duckcorp.factory.Factory;
+import duckcorp.machine.LuxuryMold;
 import duckcorp.machine.Machine;
+import duckcorp.machine.MiniPress;
+import duckcorp.machine.StandardPress;
 import duckcorp.order.Order;
 import duckcorp.order.OrderStatus;
 
@@ -117,10 +120,19 @@ public class Game {
     }
 
     /**
-     * TODO (Ex2) : instanciez et retournez la bonne sous-classe de Machine selon le choix.
+     *  Instancie et retourne la bonne sous-classe de Machine selon le choix.
      *   1 -> StandardPress  /  2 -> MiniPress  /  3 -> LuxuryMold
      */
     private Machine createMachine(int choice) {
-        throw new UnsupportedOperationException("TODO : Game.createMachine()");
+        switch (choice) {
+            case 1:
+                return new StandardPress();
+            case 2:
+                return new MiniPress();
+            case 3:
+                return new LuxuryMold();
+            default:
+                throw new IllegalArgumentException("Choix de machine invalide : " + choice);
+        }
     }
 }
