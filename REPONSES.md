@@ -39,3 +39,11 @@ Order order = new Order(DuckType.STANDARD, 1, 25.0, 3);
  * Le code COMPILE ET S'EXÉCUTE parfaitement, car StandardDuck étend Duck.
  */
 order.canBeFulfilled(standardStock);
+
+# Question 5 : Factory expose getMachines() qui retourne une List<Machine> non modifiable (via Collections.unmodifiableList()). Pourquoi ce choix ? Que se passerait-il si on retournait la liste interne directement ? Peut-on quand même modifier les machines elles-mêmes (via leurs méthodes) depuis l'extérieur ?
+
+C'est pour respecter le principe d'encapsulation. La classe Factory doit rester la seule responsable de la gestion de sa liste de machines. L'extérieur peut consulter l'inventaire, mais ne doit pas pouvoir en altérer la structure de manière incontrôlée.
+Si on retournait directement la référence vers la liste privée machines, n'importe quel code externe pourrait faire factory.getMachines().add(new LuxuryMold()). Le joueur pourrait ainsi ajouter des machines gratuitement sans passer par la méthode buyMachine().
+On peut tout à fait modifier l'état des machines contenues dans la liste. Collections.unmodifiableList() rend la structure de la liste immuable, mais les objets qu'elle contient restent mutables. 
+
+
