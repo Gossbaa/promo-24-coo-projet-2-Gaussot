@@ -1,0 +1,5 @@
+# Question 1 : Une méthode default dans une interface peut-elle accéder aux champs privés de la classe qui l'implémente ? Justifiez, en vous appuyant sur isDefective() dans Qualifiable et getQualityScore() dans Duck.
+
+Non, une méthode default dans une interface ne peut absolument pas accéder aux champs privés de la classe qui l'implémente car une interface en Java définit uniquement un contrat et n'a aucune connaissance de l'état interne ou de l'implémentation spécifique des classes. De plus, les règles d'encapsulation de Java interdisent l'accès à un champ privé depuis l'extérieur de la classe où il est déclaré.
+C'est pour cela qu'on contourne cette limitation et que l'interface Qualifiable déclare la méthode abstraite getQualityScore().
+Dans Qualifiable, la méthode default isDefective() ne peut pas lire directement le champ privé qualityScore. À la place, elle appelle la méthode getQualityScore(), qui fait partie du contrat de l'interface. C'est ensuite la classe abstraite Duck qui, en implémentant getQualityScore(), fait le pont 
