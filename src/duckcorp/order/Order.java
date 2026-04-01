@@ -4,14 +4,11 @@ import duckcorp.duck.Duck;
 import duckcorp.duck.DuckType;
 import duckcorp.stock.Stock;
 
+import java.util.Objects;
+
 /**
  * Commande client : demande un certain nombre de canards d'un type donné.
  *
- * TODO (Ex4) :
- *   - Implémentez getTotalValue(), canBeFulfilled(), fulfill()
- *   - Implémentez equals() et hashCode() basés sur l'id
- *
- * Les getters et tick() sont fournis.
  * @author Roussille Philippe <roussille@3il.fr>
  */
 public class Order {
@@ -61,26 +58,21 @@ public class Order {
         }
     }
 
-    // --- TODO ---
+    // --- Méthodes implémentées ---
 
     /**
      * Retourne la valeur totale de la commande (pricePerUnit * quantity).
      */
     public double getTotalValue() {
-        // TODO
-        throw new UnsupportedOperationException("TODO : Order.getTotalValue()");
+        return pricePerUnit * quantity;
     }
 
     /**
      * Retourne true si le stock contient suffisamment de canards du bon type
      * pour honorer cette commande.
-     *
-     * Attention à la signature : le paramètre doit accepter tout Stock
-     * dont le type générique étend Duck, pas seulement Stock<Duck>.
      */
     public boolean canBeFulfilled(Stock<? extends Duck> stock) {
-        // TODO
-        throw new UnsupportedOperationException("TODO : Order.canBeFulfilled()");
+        return stock.count(duckType) >= quantity;
     }
 
     /**
@@ -88,8 +80,7 @@ public class Order {
      * Appelée par Factory.fulfillOrder() après retrait du stock.
      */
     public void fulfill() {
-        // TODO
-        throw new UnsupportedOperationException("TODO : Order.fulfill()");
+        this.status = OrderStatus.FULFILLED;
     }
 
     /**
@@ -97,8 +88,10 @@ public class Order {
      */
     @Override
     public boolean equals(Object o) {
-        // TODO
-        throw new UnsupportedOperationException("TODO : Order.equals()");
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return Objects.equals(id, order.id);
     }
 
     /**
@@ -106,8 +99,7 @@ public class Order {
      */
     @Override
     public int hashCode() {
-        // TODO
-        throw new UnsupportedOperationException("TODO : Order.hashCode()");
+        return Objects.hash(id);
     }
 
     // --- toString fourni ---
